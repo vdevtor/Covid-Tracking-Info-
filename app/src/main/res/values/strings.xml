@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CovidInformationApp</string>
+    <string name="state">State</string>
+    <string name="negative">Negative</string>
+    <string name="postive">Postive</string>
+    <string name="death">Death</string>
+    <string name="_4_324">4,324</string>
+    <string name="hc_date">May, 2020</string>
+    <string name="weak">Weak</string>
+    <string name="max">Max</string>
+    <string name="month">Month</string>
+</resources>
