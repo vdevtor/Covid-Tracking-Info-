@@ -2,4 +2,9 @@
 <resources>
     <dimen name="sixteen_dp">16dp</dimen>
     <dimen name="eighty_dp">80dp</dimen>
+    <dimen name="eight_dp">8dp</dimen>
+    <dimen name="six_dp">6dp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="five_dp">5dp</dimen>
+    <dimen name="thirty_two_dp">32dp</dimen>
 </resources>

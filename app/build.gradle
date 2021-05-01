@@ -34,6 +34,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    repositories{
+        maven { url "https://jitpack.io" }
+    }
 }
 
 dependencies {
@@ -50,7 +54,10 @@ dependencies {
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
-
     //Spark
     implementation "com.robinhood.spark:spark:${versions.spark}"
+    //Spinner
+    implementation "com.github.arcadefire:nice-spinner:${versions.spinner}"
+    //Ticker
+    implementation "com.robinhood.ticker:ticker:${versions.ticker}"
 }

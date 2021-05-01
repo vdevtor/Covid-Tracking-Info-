@@ -8,13 +8,16 @@ buildscript {
             "junit"     : "1.1.2",
             "espresso"  : "3.3.0",
             "retrofit"  : "2.9.0",
-            "spark"     : "1.2.0"
+            "spark"     : "1.2.0",
+            "spinner"   : "1.4.4",
+            "ticker"    : "2.0.2"
 
 
     ]
     repositories {
         google()
         jcenter()
+
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.3"

@@ -17,6 +17,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
     
+    <org.angmarch.views.NiceSpinner
+        android:id="@+id/spinnerSelect"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/thirty_two_dp"
+        android:layout_marginEnd="@dimen/thirty_two_dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toEndOf="@id/tvState"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tvState"
+        app:layout_constraintTop_toTopOf="@id/tvState"
+        app:popupTextAlignment="start"
+        />
+    
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
@@ -24,19 +40,24 @@
         android:orientation="horizontal"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/tvState"
+        android:paddingBottom="@dimen/five_dp"
+        android:paddingTop="@dimen/five_dp"
         >
         <RadioButton
+            style="@style/CustomRadioButton"
             android:id="@+id/radioButtonNegative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/negative"/>
         <RadioButton
+            style="@style/CustomRadioButton"
             android:id="@+id/radioButtonPostive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/postive"/>
 
         <RadioButton
+            style="@style/CustomRadioButton"
             android:id="@+id/radioButtonDeath"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +67,11 @@
     <com.robinhood.spark.SparkView
         android:id="@+id/sparkView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/six_dp"
+        android:layout_height="@dimen/zero_dp"
+        android:paddingTop="@dimen/sixteen_dp"
+        android:paddingBottom="@dimen/eight_dp"
+        android:background="@color/backgrounde"
         app:layout_constraintTop_toBottomOf="@id/radioGroup"
         app:layout_constraintBottom_toTopOf="@id/radioGroupTimeSelected"/>
 
@@ -55,23 +80,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/sixteen_dp"
+        android:background="@color/backgrounde"
+        android:paddingBottom="@dimen/eight_dp"
         android:orientation="horizontal"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/tvDateLabel">
 
 
         <RadioButton
+            style="@style/CustomRadioButton"
             android:id="@+id/radioButtonWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/weak"/>
         <RadioButton
+            style="@style/CustomRadioButton"
             android:id="@+id/radioButtonMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/month"/>
 
         <RadioButton
+            style="@style/CustomRadioButton"
             android:id="@+id/radioButtonMax"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,8 +121,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
-    <TextView
-        android:id="@+id/tvMetricLabel"
+    <com.robinhood.ticker.TickerView
+        android:id="@+id/tickerView"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:gravity="center"
@@ -103,5 +133,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+
+    
 
 </androidx.constraintlayout.widget.ConstraintLayout>

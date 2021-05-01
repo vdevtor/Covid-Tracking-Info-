@@ -12,6 +12,7 @@ import com.example.covidinformationapp.model.CovidSparkAdapter
 import com.example.covidinformationapp.model.Metric
 import com.example.covidinformationapp.model.TimeScale
 import com.google.gson.GsonBuilder
+import com.robinhood.ticker.TickerUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,6 +24,7 @@ import java.util.*
 
 private const val BASE_URL = "https://covidtracking.com/api/v1/"
 private const val TAG = "MainActivity"
+private const val ALL_STATES: String = "All (NationWide)"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var currentShownData: List<CovidData>
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.title = getString(R.string.app_description)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -83,13 +86,28 @@ class MainActivity : AppCompatActivity() {
                 }
                 perStateDailyData = statesData.reversed().groupBy { it.state }
                 Log.i(TAG, "Update Spinner with data")
+                updateSpinnerWithStateDate(perStateDailyData.keys)
 
             }
 
         })
     }
 
+    private fun updateSpinnerWithStateDate(stateNames: Set<String>) {
+        val stateAbbreviationList = stateNames.toMutableList()
+        stateAbbreviationList.sort()
+        stateAbbreviationList.add(0,ALL_STATES)
+        //Add state list as data for our spinner
+        binding.spinnerSelect.attachDataSource(stateAbbreviationList)
+        binding.spinnerSelect.setOnSpinnerItemSelectedListener { parent, _, position, _ ->
+            val selectedState = parent.getItemAtPosition(position) as String
+            val selectedData = perStateDailyData[selectedState] ?: nationalDailyData
+            updateDisplayWithData(selectedData)
+        }
+    }
+
     private fun setUpEventListeners() {
+        binding.tickerView.setCharacterLists(TickerUtils.provideNumberList())
         //Add listener for user scrubbing on the chart
         binding.sparkView.isScrubEnabled = true
         binding.sparkView.setScrubListener { itemData ->
@@ -120,14 +138,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateDisplayMetric(metric: Metric) {
         //Display The color of the chart
-        var colorRes = when(metric){
-            Metric.NEGATIVE -> R.color.orange
+        val colorRes = when(metric){
+            Metric.NEGATIVE -> R.color.green
             Metric.POSITIVE -> R.color.red
-            Metric.DEATH -> R.color.black
+            Metric.DEATH -> R.color.death
         }
         @ColorInt val colorInt = ContextCompat.getColor(this,colorRes)
         binding.sparkView.lineColor = colorInt
-        binding.tvMetricLabel.setTextColor(colorInt)
+        binding.tickerView.setTextColor(colorInt)
         adapter.metric = metric
         adapter.notifyDataSetChanged()
         updateInfoForDate(currentShownData.last())
@@ -151,7 +169,7 @@ class MainActivity : AppCompatActivity() {
             Metric.POSITIVE -> covidData.positiveIncrease
             Metric.DEATH -> covidData.deathIncrease
         }
-        binding.tvMetricLabel.text = NumberFormat.getInstance().format(numCases)
+        binding.tickerView.text = NumberFormat.getInstance().format(numCases)
         val outPutDateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.US)
         binding.tvDateLabel.text = outPutDateFormat.format(covidData.dateChecked)
     }
